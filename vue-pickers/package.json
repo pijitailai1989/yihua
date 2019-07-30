@@ -1,0 +1,54 @@
+{
+  "_from": "vue-pickers",
+  "_id": "vue-pickers@1.0.3",
+  "_inBundle": false,
+  "_integrity": "sha1-ChXu2F4+I/F+wcYN0Icr6wzuJvY=",
+  "_location": "/vue-pickers",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "vue-pickers",
+    "name": "vue-pickers",
+    "escapedName": "vue-pickers",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "http://registry.npm.taobao.org/vue-pickers/download/vue-pickers-1.0.3.tgz",
+  "_shasum": "0a15eed85e3e23f17ec1c60dd0872beb0cee26f6",
+  "_spec": "vue-pickers",
+  "_where": "D:\\svn\\application\\yihua_wechat",
+  "author": {
+    "name": "naice"
+  },
+  "bugs": {
+    "url": "https://github.com/naihe138/vue-picker/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "a picker componemt for vue2.0",
+  "directories": {
+    "lib": "lib"
+  },
+  "homepage": "https://github.com/naihe138/vue-picker#readme",
+  "keywords": [
+    "vue2.0",
+    "vue-picker"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "vue-pickers",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naihe138/vue-picker.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.3"
+}

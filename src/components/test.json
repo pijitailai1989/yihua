@@ -1,0 +1,19 @@
+{
+  "guid": 391336081805017100,
+  "account": "admin",
+  "createTime": 1513343393000,
+  "isEnable": 1,
+  "lastLoginIp": null,
+  "lastLoginTime": null,
+  "loginCount": 0,
+  "name": "我是谁",
+  "tel": "188888888888",
+  "des": "拥有全部",
+  "roleId": null,
+  "roleName": null,
+  "credentialsNonExpired": true,
+  "accountNonExpired": true,
+  "accountNonLocked": true,
+  "enabled": true,
+  "username": "admin"
+}

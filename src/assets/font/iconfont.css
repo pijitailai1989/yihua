@@ -1,0 +1,167 @@
+
+
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1516762870625'); /* IE9*/
+  src: url('iconfont.eot?t=1516762870625#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.ttf?t=1516762870625') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1516762870625#iconfont') format('svg'); /* iOS 4.1- */
+
+}
+
+[class^="icon-custom-"]:before, [class*=" icon-custom-"]:before {
+  font-family:"iconfont" !important;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-custom-delete:before {
+  content: "\e631";
+}
+.icon-custom-delete1:before {
+  content: "\e69a";
+}
+.icon-custom-addblack:before { content: "\e6c4"; }
+
+.icon-custom-pinglun1:before { content: "\e642"; }
+
+.icon-custom-addfriend:before { content: "\e649"; }
+
+.icon-custom-giveGood:before { content: "\e613"; }
+
+.icon-custom-check:before { content: "\e618"; }
+
+.icon-custom-remove:before { content: "\e60d"; }
+
+.icon-custom-pinglun:before { content: "\e626"; }
+
+.icon-custom-shangchuan:before { content: "\e636"; }
+
+
+/*文库发现按钮*/
+.icon-custom-faxian:before { content: "\e608"; }
+/*个人图标*/
+.icon-custom-gerenzhanghao:before { content: "\e647"; }
+/*客服*/
+.icon-custom-kefu:before { content: "\e632"; }
+/*阅读*/
+.icon-custom-yuedu:before { content: "\e680"; }
+/* 企业图标 */
+.icon-custom-qiye:before { content: "\e621"; }
+/* 文科发现 */
+.icon-custom-discover:before { content: "\e63a"; }
+/* 注册协议问号后面的图标 */
+.icon-custom-wen:before { content: "\e826"; }
+/* 我的文库图标 */
+.icon-custom-wendang:before { content: "\e64c"; }
+/* 删除 */
+.icon-costom-delete2:before { content: "\e617"; }
+/* 下载图标 */
+.icon-custom-xiazai:before { content: "\e644"; }
+/* 收藏 */
+.icon-custom-shoucang:before { content: "\e600"; }
+/* 我的财富 */
+.icon-custom-wodecaifu:before { content: "\e6b8"; }
+/* 筛选右侧图标 */
+.icon-custom-toDown:before { content: "\e601"; }
+
+/* 我的文库发现图标 */
+.icon-custom-faxian1:before { content: "\e602"; }
+/* 上拉 */
+.icon-custom-shangla:before { content: "\e62d"; }
+/* 类别 */
+.icon-custom-leibie:before { content: "\e603"; }
+/* 日历 */
+.icon-custom-rili:before { content: "\e61c"; }
+/* 选中 */
+.icon-custom-select2:before{
+  content:'\e60f'
+}
+/* 设置 */
+.icon-custom-setting:before{
+  content:'\e645'
+}
+.icon-custom-select:before{
+  content:'\e61f'
+}.icon-custom-selected:before{
+  content:'\e659'
+}
+.icon-custom-tongxinyuan:before{
+  content: '\e61a'
+}
+.icon-custom-xia:before{
+  content: '\e63d'
+}
+.icon-custom-shang:before{
+  content: '\e63c'
+}
+.icon-custom-zuo:before{
+  content: '\e63e'
+}
+.icon-custom-you:before{
+  content: '\e620'
+}
+/* 购物车 */
+.icon-custom-purchase:before{
+  content: '\e61b'
+}
+/* 产品 */
+
+.icon-custom-product:before{
+  content: '\e6c9'
+}
+/* 店铺 */
+.icon-custom-store::before{
+  content: '\e606'
+}
+/* 电话2 */
+.icon-custom-tel2::before{
+  content: '\e60c'
+}
+/* 编辑 */
+.icon-custom-edit::before{
+  content: '\e622'
+}
+/* 编辑 */
+.icon-custom-edit::before{
+  content: '\e622'
+}
+/* 预约 */
+.icon-custom-preview::before{
+  content: '\e609'
+}
+/* 发现 */
+.icon-custom-found::before{
+  content: '\e746'
+}
+/* 定位 */
+.icon-custom-position::before{
+  content: '\e6b5'
+}
+/* 短信 */
+.icon-custom-message:before{
+  content: '\e6b5'
+}
+
+/* 电话 */
+.icon-custom-phone0:before{
+  content: '\e607'
+}
+/* 收藏 */
+.icon-custom-collect0::before{
+  content: '\e610'
+}
+/*部门*/
+.icon-custom-bumen:before{
+  content: '\e60a';
+}
+/*不同意*/
+.icon-custom-disagree:before { content: "\e61d"; }
+.icon-custom-disagree1:before { content: "\e612"; }
+/*同意*/
+.icon-custom-agree:before { content: "\e633"; }
+/*删除*/
+.icon-custom-deleteIcon:before { content: "\e8c1" }
+/*通知*/
+.icon-custom-tongzhi:before { content: "\e62e" }
+
+

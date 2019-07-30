@@ -1,0 +1,459 @@
+<template>
+  <yd-layout>
+    <yd-navbar title="选择" slot="navbar" :bgcolor='mainColor' color='#fff' height='.88rem'>
+      <yd-navbar-back-icon slot="left" @click.native="close" color='#fff' class="addClickArea"></yd-navbar-back-icon>
+    </yd-navbar>
+    <div class="headTab" slot="top">
+      <div class="flex-row h9">
+        <div :class='["flex1","jusCenter" ,{active:currentIndex == 0}]' :style="currentIndex == 0?`color:${mainColor};border-bottom:2px solid ${mainColor}`:'border:2px solid #fff'" @click="chooseIndex(0)">
+          <span>{{current.dictDataName}}</span>
+          <yd-icon name='toDown' v-if="currentIndex != 0" size='.2rem' color='#444' custom></yd-icon>
+          <yd-icon name='shangla' v-if="currentIndex == 0" :color='mainColor' size='.2rem' custom></yd-icon>
+        </div>
+        <!-- <div :class='["flex1","jusCenter" ,{active:currentIndex == 1}]' :style="currentIndex == 1?`color:${mainColor};border-bottom:2px solid ${mainColor}`:'border:2px solid #fff'" @click="chooseIndex(1)">
+          <span>全部分类</span>
+          <yd-icon name='toDown' v-if="currentIndex !=1" size='.2rem' color='#444' custom></yd-icon>
+           <yd-icon name='shangla' v-if="currentIndex == 1" :color='mainColor' size='.2rem' custom></yd-icon>
+        </div> -->
+        <div :class='["flex1","jusCenter" ,{active:currentIndex == 2}]' :style="currentIndex == 2?`color:${mainColor};border-bottom:2px solid ${mainColor}`:'border:2px solid #fff'" @click="chooseIndex(2)">
+          <span>{{current1.name}}</span>
+          <yd-icon name='toDown' v-if="currentIndex !=2" size='.2rem' color='#444' custom></yd-icon>
+          <yd-icon name='shangla' v-if="currentIndex == 2" :color='mainColor' size='.2rem' custom></yd-icon>
+        </div>
+      </div>
+    </div>
+    <div class="mask" style="top:1.78rem" v-if="isFilter" @click="cancelIndex()">
+      <div class="filter bgwhite" @click.stop="''">
+        <!-- 筛选时间 -->
+        <div class="timeFilter" v-show="currentIndex == 0">
+          <div class="flex h8 pdlr2">
+            <span>当前选择:{{current.dictDataName}}</span>
+            <div class="flex">
+              <yd-button class="mr2" type='hollow' @click.native="cancelIndex()">取消</yd-button>
+              <yd-button  class="mr2"  type='hollow' @click.native="confirmFn(0)">确定</yd-button>
+            </div>
+          </div>
+          <div class="myList">
+            <div v-for="(item,index) in areaList" style="flex:1" v-show="!item.show" v-if="item.length>0" :key="index">
+              <div :class="['flex_list','flex1']"  v-for="(item1,index1) in item"  @click="setList(item1,index,index1)" :key="index1">
+                <span :style="item1.selected?`color:${mainColor}`:''">{{item1.dictDataName}}</span>
+                <yd-icon size='.4rem' name='you' custom :color='item1.selected?mainColor:""'></yd-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 筛选状态 -->
+        <div class="timeFilter" v-show="currentIndex == 1">
+          <div class="flex h8 pdlr2">
+            <span>当前选择:{{current1.dictDataName}}</span>
+            <div class="flex">
+              <yd-button class="mr2" type='hollow' @click.native="cancelIndex()">取消</yd-button>
+              <yd-button  class="mr2"  type='hollow' @click.native="confirmFn(1)">确定</yd-button>
+            </div>
+          </div>
+          <div class="myList">
+            <!-- {{hangyeList[0]}} -->
+            <div v-for="(item,index) in hangyeList" style="flex:1" :key="index">
+              <div :class="['flex_list','flex1']"  v-for="(item1,index1) in item"  @click="setList1(item1,index,index1)" :key="index1">
+                <span :style="item1.selected?`color:${mainColor}`:''">{{item1.name}}</span>
+                <yd-icon size='.4rem' name='you' custom :color='item1.selected?mainColor:""'></yd-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 筛选类型 -->
+        <div class="flex-row statusFilte flex-start" v-show="currentIndex == 2">
+          <div class="statusList" style="width:50%;" v-for="(item,index) in statusList" :key="index">
+            <div class="flex"><div  @click="currentIndex2=index" :style="currentIndex2 == index?`color:${mainColor};border-color:${mainColor}`:''">{{item.name}}</div></div>
+          </div>
+          <div class="flex-row jusCenter mt3 h8" style="width:100%">
+            <div class="flex1 jusCenter bt" @click="cancelIndex()" :style="{color:'#000',background:'#fff'}">取消</div>
+            <div class="flex1 jusCenter" @click="confirmFn(2)" :style="{color:'#fff',background:mainColor}">确定</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <yd-infinitescroll style="margin-top:.2rem;" :callback="loadList" ref="infinitescrollDemo">
+      <div style="padding:0;" class="" slot="list">
+        <div class="list flex1 h7" v-for="(item,index) in list" @click="toDetail(index,item)" :key="index">
+          <div>{{item.buildingName}}</div>
+          <div>
+            <yd-icon name="selected" custom v-if="item.selected" :color="mainColor" style="margin-right:-.03rem" size=".46rem"></yd-icon>
+            <yd-icon name="select" custom v-else size=".4rem"></yd-icon>
+          </div>
+        </div>
+      </div>
+      <!-- 数据全部加载完毕显示 -->
+      <span slot="doneTip">啦啦啦，啦啦啦，没有数据啦~~</span>
+    </yd-infinitescroll>
+    <div class="flex-row-nowarp h9 font32 bt jusCenter bgwhite" slot="bottom" @click="confirm" :style="{color:mainColor}">确定</div>
+  </yd-layout>
+</template>
+<script>
+  export default {
+    data() {
+      let userInfo = JSON.parse(
+        decodeURIComponent(localStorage.getItem("userInfo"))
+      );
+      let organInfo = JSON.parse(
+        decodeURIComponent(localStorage.getItem("organInfo"))
+      );
+      this.mainColor = this.$color[userInfo.organType];
+      return {
+        userInfo,
+        organInfo,
+        list: [],
+        currentIndex: -1,
+        currentIndex1: -1,
+        currentIndex2: -1,
+        isFilter: false,
+        current: {
+          dictDataName:"区域"
+        },
+
+        pageNo: 1,
+        areaList: [[], [], [], []],
+        hangyeList: [[], []],
+        current1: {
+          name:"状态",
+        },
+        statusList: [
+          {
+            name:"所有",
+            value:"0"
+          },
+          {
+            name: "本市",
+            value: "2"
+          },
+          {
+            name: "本区",
+            value: "3"
+          },{
+            name: "本片区",
+            value: "4"
+          }
+        ],
+        mIndex:-1,
+      };
+    },
+    methods: {
+      confirm(){
+        this.$emit('receive',this.list[this.mIndex]);
+      },
+      close(){
+        this.$emit('receive');
+      },
+      toDetail(e) {
+        this.mIndex = e;
+        for(var i in this.list){
+          if(i == e){
+            this.$set(this.list[i],'selected',true);
+          }else{
+            this.$set(this.list[i],'selected',false);
+          }
+        }
+      },
+      randomColor: function() {
+        var i = Math.round(Math.random() * 4);
+        var colorArr = ["#3eb7e6", "#62c88c", "#fab23e", "#fa697c", "#adb8c0"];
+        return colorArr[i];
+      },
+      cancelIndex() {
+        this.currentIndex = -1;
+        this.isFilter = false;
+      },
+      chooseIndex(e) {
+        this.currentIndex = e;
+        this.isFilter = true;
+      },
+      confirmFn(e) {
+        if (e == 0) {
+          // this.$dialog.toast({ mes: "您选择的是" + this.current.dictDataName });
+          this.$refs.infinitescrollDemo.$emit("ydui.infinitescroll.loadedDone");
+          this.list = [];
+          this.pageNo = 1;
+          this.getList();
+        } else if (e == 2) {
+          this.$refs.infinitescrollDemo.$emit("ydui.infinitescroll.loadedDone");
+          this.list = [];
+          this.pageNo = 1;
+          this.getList();
+        }
+
+        this.isFilter = false;
+        this.currentIndex = -1;
+      },
+      // 筛选地区
+      setList(val, i, j) {
+        if (i < 3) {
+          this.getDistrict(val.guid, res => {
+            this.$set(this.areaList, i * 1 + 1, res);
+          });
+        }
+        for (var a = i; a < this.areaList.length; a++) {
+          for (var b = 0; b < this.areaList[a].length; b++) {
+            if (i == a && b == j) {
+              this.$set(this.areaList[i][j], "selected", true);
+              this.current = Object.assign({}, this.areaList[i][j]);
+            } else {
+              this.$set(this.areaList[a][b], "selected", false);
+            }
+          }
+        }
+        if (i == 0) {
+          this.$set(this.areaList, 1, []);
+          this.$set(this.areaList, 2, []);
+          this.$set(this.areaList, 3, []);
+          this.$set(this.areaList[0], "show", false);
+        } else if (i == 1) {
+          this.$set(this.areaList, 2, []);
+          this.$set(this.areaList, 3, []);
+          this.$set(this.areaList[0], "show", false);
+        } else if (i == 2) {
+          this.$set(this.areaList, 3, []);
+          this.$set(this.areaList[0], "show", true);
+        } else if (i == 3) {
+        }
+      },
+      //筛选分类
+      setList1(val, i, j) {
+        if (i == 0) {
+          var arr = this.hangyeList[i][j].subclass
+            ? this.hangyeList[i][j].subclass
+            : [];
+          this.hangyeList[1] = arr;
+        }
+        for (var a = i; a < this.hangyeList.length; a++) {
+          for (var b = 0; b < this.hangyeList[a].length; b++) {
+            if (i == a && b == j) {
+              this.$set(this.hangyeList[i][j], "selected", true);
+              this.current1 = Object.assign({}, this.hangyeList[i][j]);
+            } else {
+              this.$set(this.hangyeList[a][b], "selected", false);
+            }
+          }
+        }
+      },
+      gethangye() {
+        this.$ajax(
+          `${this.subUrl.user}/comm/getIndustryCategory`,
+          {},
+          res => {
+            this.hangyeList[0] = this.hangyeList[0]
+              .concat(res.data.pmc)
+              .concat(res.data.icc);
+          },
+          this
+        );
+      },
+      getDistrict(id, cb) {
+        let data = {
+          id
+        };
+        this.$ajax(
+          `${this.subUrl.user}/comm/getDistrictList`,
+          data,
+          res => {
+            cb && cb(res.data);
+          },
+          this
+        );
+      },
+      contact(e) {
+        e = e ? e : "15707973128";
+        this.$dialog.alert({
+          mes: "请联系客服" + e
+        });
+      },
+      loadList() {
+        this.getList();
+      },
+      getList() {
+        var data = {
+          token: this.$getkey(),
+          userId: this.userInfo.guid,
+          organId: this.organInfo.guid,
+          pageNo: this.pageNo
+        };
+        if (this.current.guid) {
+          data.scopeValue = this.current.guid;
+        }
+        if(this.currentIndex2 > -1){
+          data.positionCondition = this.statusList[this.currentIndex2].value;
+        }
+        this.$ajax(
+          `${this.subUrl.activity}/lease/getBuilding`,
+          data,
+          res => {
+            this.list = this.list.concat(res.data.list);
+            if (res.data.pageCount <= this.pageNo) {
+              this.$refs.infinitescrollDemo.$emit(
+                "ydui.infinitescroll.loadedDone"
+              );
+            } else {
+              this.$refs.infinitescrollDemo.$emit(
+                "ydui.infinitescroll.finishLoad"
+              );
+            }
+            this.pageNo++;
+          },
+          this
+        );
+      }
+    },
+    mounted() {
+      this.getList();
+      this.getDistrict(0, res => {
+        this.areaList[0] = res;
+        this.$set(this.areaList, 0, res);
+      });
+      this.gethangye();
+    }
+  };
+</script>
+<style scoped>
+  .statusList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 0.7rem;
+    padding: 0.1rem 0;
+    margin-bottom: .2rem;
+    width: 50%;
+  }
+  .statusList .flex > div {
+    padding: 0.1rem 0;
+    width: 2.6rem;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 0.1rem;
+    color: #999;
+  }
+  .list {
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    justify-content: space-between;
+    padding-right: 0.2rem;
+    padding: 0 .28rem;
+  }
+  .list_item {
+    margin-left: 0.45rem;
+    padding: 0.2rem 0.3rem 0.2rem 0;
+    /* border-bottom: 1px solid #ddd; */
+  }
+  .list_item:last-child {
+    margin-bottom: -1px;
+  }
+  .list_item .icon {
+    width: 0.8rem;
+    height: 0.8rem;
+    /* border-radius: 50%; */
+    /* border: 1px solid #ddd; */
+    text-align: center;
+    line-height: 0.8rem;
+    font-size: 0.4rem;
+    color: #fff;
+  }
+  .contact {
+    line-height: 0.6rem;
+    padding: 0 0.1rem;
+    border-radius: 0.1rem;
+  }
+  .myButton {
+    width: 1.56rem;
+    border: 1px solid #fff;
+  }
+  .timeFilter {
+    /* display: flex; */
+    /* flex-flow: row nowrap; */
+    padding: 0;
+  }
+  .flex_list {
+    padding: 0 0.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 0.7rem;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: -1px;
+  }
+  .myList {
+    display: flex;
+  }
+  .myList > div {
+    max-height: 5rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .myList span {
+    width: 1.5rem;
+  }
+  /*  */
+  .statusFilte {
+    padding: 0.24rem 0;
+    padding-bottom: 0;
+  }
+  .myButton {
+    margin-right: 0.2rem;
+    margin-bottom: 0.2rem;
+  }
+  .filter {
+    top: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    /* padding: 0 0 0.5rem; */
+    transform: translate(0, 0);
+    background: #fff;
+    border-radius: 0;
+  }
+  .layout_my .header:after {
+    display: none;
+  }
+
+  .layout_my {
+    background: #f7f7f9;
+  }
+
+  .layout_my .blue_box {
+    height: 0.88rem;
+    background: #0093d2;
+    background-size: 100% 100%;
+  }
+
+  .headTab {
+    width: 100%;
+    height: 0.9rem;
+    background: white;
+  }
+  .headTab .flex1 {
+    border-bottom: 2px solid #fff;
+    overflow: hidden;
+  }
+  .headTab .flex1.active {
+    color: rgb(30, 130, 210);
+    border-color: rgb(30, 130, 210);
+  }
+  .headTab ul {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: row;
+  }
+
+  .headTab ul li {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.32rem;
+  }
+</style>
+
+

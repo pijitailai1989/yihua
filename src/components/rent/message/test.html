@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+
+<button id="hhhh">按住说话</button>
+
+<style type="text/css">
+  #hhhh{height:40px;line-height: 40px; text-align: center; background: #f00; color:#fff;}
+</style>
+
+<script>
+  document.getElementById('hhhh').addEventListener('touchstart', function(ev) {
+    alert(123)
+    ev.preventDefault();
+    this.style.background = '#f00';
+    //your start record code here...
+  }, false);
+  document.getElementById('hhhh').addEventListener('touchend', function(ev) {
+    alert(321)
+    ev.preventDefault();
+    this.style.background  = '#0f0';
+    //your stop record code here...
+  }, false);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+.jiaofei {
+    padding: .2rem 0 .4rem;
+}
+
+.jiaofei .flex-row {
+    margin-bottom: .18rem;
+    padding-right: .44rem;
+}
+
+.jiaofei .flex-row .label {
+    width: 1.84rem;
+    box-sizing: border-box;
+    padding-right: .2rem;
+    text-align: right;
+}
+
+.jiaofei .flex-row input {
+    outline: none;
+    border: 1px solid #ddd;
+    border-radius: .05rem;
+    padding: 0 .1rem;
+}
+
+.state {
+    border-radius: .05rem;
+    border: 1px solid #ddd;
+    padding: .03rem .1rem;
+    /* line-height: .5rem; */
+    /* height: .5rem; */
+    font-size: .26rem;
+}
+
+.state2 {
+    color: #fab23e;
+    border-color: #fab23e;
+}
+
+.state1 {
+    color: #3eb7e6;
+    border-color: #3eb7e6;
+}
+
+.state0 {
+    color: #fa697c;
+    border-color: #fa697c;
+}
